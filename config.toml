@@ -1,10 +1,12 @@
-[build]
-target = "xtensa-esp32s3-none-elf"   # Target chip architecture
-
 [target.xtensa-esp32s3-none-elf]
-linker = "ldproxy"                    # Use ESP linker proxy
-runner = "espflash flash --monitor"    # cargo run = flash + monitor
-rustflags = [ "-C", "link-arg=-Tlinkall.x" ]
+runner = "espflash flash --monitor"
+rustflags = [
+    "-C", "link-arg=-nostartfiles",
+    "-C", "link-arg=-Wl,-Tlinkall.x",
+]
+
+[build]
+target = "xtensa-esp32s3-none-elf"
 
 [unstable]
-build-std = ["core"]                   # Build core lib for no_std
+build-std = ["core"]

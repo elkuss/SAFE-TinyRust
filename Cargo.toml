@@ -1,31 +1,15 @@
 [package]
-name = "safe-tinyrust"
+name    = "safe-rust"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-
-# ESP HAL
-esp-hal = { version = "0.18.0", features = ["esp32s3"] }
-
-# Backtrace / panic handler
-esp-backtrace = { version = "0.13.0", features = [
-    "esp32s3",
-    "panic-handler",
-    "println"
-] }
-
-# Serial print
-esp-println = { version = "0.11.0", features = ["jtag-serial"] }
-
-# Heapless data structure
-heapless = "0.8"
-
-[profile.dev]
-opt-level = "s"
-debug = true
+esp-hal                = { version = "1.1.1", features = ["esp32s3", "unstable"] }
+esp-backtrace          = { version = "0.18.1", features = ["esp32s3", "panic-handler", "println"] }
+esp-println            = { version = "0.16.1", features = ["esp32s3", "log-04"] }
+esp-bootloader-esp-idf = { version = "0.5.0", features = ["esp32s3"] }
 
 [profile.release]
-opt-level = "s"
-lto = true
-debug = false
+opt-level     = "z"
+lto           = true
+codegen-units = 1
